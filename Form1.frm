@@ -36,7 +36,9 @@ Begin VB.Form Form1
       _ExtentX        =   21616
       _ExtentY        =   6376
       _Version        =   393216
+      Rows            =   1
       Cols            =   6
+      FixedCols       =   0
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Comic Sans MS"
          Size            =   14.25
@@ -248,8 +250,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim alumnos() As New datos
-Dim ApellidoA As String
-Dim Nombre As String
 Dim linea As String
 Private Sub Command1_Click()
 Dim subA As Integer
@@ -317,8 +317,29 @@ Private Sub Command2_Click()
 
     Grilla.AddItem "Leandro" & vbTab & "20" & vbTab & "2004" & vbTab & "45467967" & vbTab
     Grilla.AddItem "Darius" & vbTab & "30" & vbTab & "2009" & vbTab & "Noxus" & vbTab
+    
+    
 
-    Grilla.RemoveItem (1)
+'    Grilla.RemoveItem (1)
+'   If Mid(Linea2, A, 1) <> ";" Then
+'
+'                campos = campos & Mid(Linea2, A, 1)
+'
+'            ElseIf bolivean = False And Mid(Linea2, A, 1) = ";" Then
+'
+'                bolivean = True
+'
+'                Grilla.AddItem vbTab & campos
+'
+'                campos = ""
+'
+'            ElseIf bolivean = True Then
+'
+'            End If
+'
+'        Next A
+'
+'        bolivean = False
 
 
 
@@ -326,26 +347,77 @@ End Sub
 Private Sub Command3_Click()
 Dim Linea2 As String
 Dim A As Integer
-Dim comparar As String
-    
-    Open App.Path & "/alumnos.txt" For Input As #1
+Dim campos As String
+Dim conjunto As String
+Dim cont As Integer
+Dim nombre As String
+Dim fecha As String
+Dim nota As String
+Dim tel As Long
+Dim materia As String
+
+    Open App.Path & "/Alumnos.txt" For Input As #1
         
         Do Until EOF(1)
         
         Input #1, Linea2
         
-        For A = 0 To Len(Linea2)
-            comparar = Mid(Linea2, A, 1)
+        For A = 1 To Len(Linea2)
             
-            if
-
-
-
+            campos = Mid(Linea2, A, 1)
+            
+            If campos = ";" Then
+                cont = cont + 1
+                If cont = 1 Then
+                    nombre = conjunto
+                    conjunto = ""
+                ElseIf cont = 2 Then
+                    fecha = conjunto
+                    conjunto = ""
+                ElseIf cont = 3 Then
+                    nota = conjunto
+                    conjunto = ""
+                ElseIf cont = 4 Then
+                    tel = conjunto
+                    conjunto = ""
+                ElseIf cont = 5 Then
+                    materia = conjunto
+                    conjunto = ""
+                End If
+            Else
+            
+            conjunto = conjunto & campos
+            
+            End If
+        
+        ReDim Preserve alumnos(alum)
+        alumnos(alum).constructor
+        
+        
+        Grilla.RemoveItem (1)
+        
+        alum = alum + 1
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        Loop
     Close #1
 
 
-
+        
 
 
 
 End Sub
+
